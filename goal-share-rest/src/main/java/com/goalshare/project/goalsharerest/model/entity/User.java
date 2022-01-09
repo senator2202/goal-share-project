@@ -1,6 +1,5 @@
-package com.goalshare.project.goalsharerest.model;
+package com.goalshare.project.goalsharerest.model.entity;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,23 +11,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Goal {
-
+@Entity
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false, unique = true)
+    private String username;
     @Column(nullable = false)
-    private String shortName;
-    private String description;
-    private Date startDate;
-    @Column(nullable = false)
-    private Date endDate;
+    private String password;
+
 }

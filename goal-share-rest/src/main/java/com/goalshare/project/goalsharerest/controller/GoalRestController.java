@@ -1,10 +1,11 @@
 package com.goalshare.project.goalsharerest.controller;
 
-import com.goalshare.project.goalsharerest.model.GoalDto;
+import com.goalshare.project.goalsharerest.model.dto.GoalDto;
 import com.goalshare.project.goalsharerest.service.GoalService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,29 +17,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/goals")
+@RequiredArgsConstructor
 public class GoalRestController {
 
-    @Autowired
-    private GoalService goalService;
+    private final GoalService goalService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<GoalDto>> findAll() {
         List<GoalDto> goals = goalService.findAll();
         return ResponseEntity.ok(goals);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<GoalDto> findById(@PathVariable long id) {
         Optional<GoalDto> goal = goalService.findById(id);
         return goal
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @PostMapping

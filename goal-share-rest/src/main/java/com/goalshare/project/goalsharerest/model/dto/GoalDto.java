@@ -1,4 +1,4 @@
-package com.goalshare.project.goalsharerest.model;
+package com.goalshare.project.goalsharerest.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;

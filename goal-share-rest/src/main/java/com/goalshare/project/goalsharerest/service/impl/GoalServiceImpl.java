@@ -1,10 +1,11 @@
 package com.goalshare.project.goalsharerest.service.impl;
 
-import com.goalshare.project.goalsharerest.model.Goal;
-import com.goalshare.project.goalsharerest.model.GoalDto;
+import com.goalshare.project.goalsharerest.model.entity.Goal;
+import com.goalshare.project.goalsharerest.model.dto.GoalDto;
 import com.goalshare.project.goalsharerest.repository.GoalRepository;
 import com.goalshare.project.goalsharerest.service.GoalService;
 import com.goalshare.project.goalsharerest.util.ObjectConversionUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class GoalServiceImpl implements GoalService {
 
-    @Autowired
-    private GoalRepository goalRepository;
+    private final GoalRepository goalRepository;
 
     @Override
     public List<GoalDto> findAll() {

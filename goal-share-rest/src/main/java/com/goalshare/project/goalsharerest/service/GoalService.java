@@ -1,7 +1,6 @@
 package com.goalshare.project.goalsharerest.service;
 
-import com.goalshare.project.goalsharerest.model.Goal;
-import com.goalshare.project.goalsharerest.model.GoalDto;
+import com.goalshare.project.goalsharerest.model.dto.GoalDto;
 
 import java.util.List;
 import java.util.Optional;
